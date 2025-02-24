@@ -6,7 +6,7 @@ class InferlessPythonModel:
         # Define sampling parameters for model generation
         self.sampling_params = SamplingParams(temperature=0.7, top_p=0.95, max_tokens=128)
         # Initialize the LLM object
-        self.llm = LLM(model=model_id)
+        self.llm = LLM(model=model_id,gpu_memory_utilization=0.9)
         
     def infer(self,inputs):
         prompts = inputs["prompt"]  # Extract the prompt from the input
