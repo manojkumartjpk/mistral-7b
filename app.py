@@ -1,6 +1,6 @@
 from vllm import LLM
 from vllm.sampling_params import SamplingParams
-
+os.environ["VLLM_USE_V1"] = "0"
 
 class InferlessPythonModel:
     def initialize(self):
