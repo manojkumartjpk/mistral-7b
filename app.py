@@ -1,21 +1,34 @@
-from vllm import LLM, SamplingParams
+from vllm import LLM
+from vllm.sampling_params import SamplingParams
+
 
 class InferlessPythonModel:
     def initialize(self):
-        model_id = "mistralai/Mistral-7B-v0.1"  # Specify the model repository ID
+        model_id = "mistralai/Mistral-Small-3.1-24B-Instruct-2503"  # Specify the model repository ID
         # Define sampling parameters for model generation
-        self.sampling_params = SamplingParams(temperature=0.7, top_p=0.95, max_tokens=128)
+        self.sampling_params = SamplingParams(max_tokens=512, temperature=0.15)
         # Initialize the LLM object
-        self.llm = LLM(model=model_id,gpu_memory_utilization=0.9)
+        self.llm = LLM(model=model_name, tokenizer_mode="mistral")
         
     def infer(self,inputs):
-        prompts = inputs["prompt"]  # Extract the prompt from the input
-        result = self.llm.generate(prompts, self.sampling_params)
-        # Extract the generated text from the result
-        result_output = [output.outputs[0].text for output in result]
+        SYSTEM_PROMPT = "You are a conversational agent that always answers straight to the point, always end your accurate response with an ASCII drawing of a cat."
+        messages = [
+            {
+                "role": "system",
+                "content": SYSTEM_PROMPT
+            },
+            {
+                "role": "user",
+                "content": inputs["prompt"]
+            },
+        ]
+        prompts = inputs["prompt"]  
+        outputs = llm.chat(messages, sampling_params=sampling_params)
+
+        result_output = outputs[0].outputs[0].text
 
         # Return a dictionary containing the result
-        return {'generated_text': result_output[0]}
+        return {'generated_text': result_output}
 
     def finalize(self):
         pass
