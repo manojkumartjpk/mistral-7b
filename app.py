@@ -8,7 +8,7 @@ class InferlessPythonModel:
         # Define sampling parameters for model generation
         self.sampling_params = SamplingParams(max_tokens=512, temperature=0.15)
         # Initialize the LLM object
-        self.llm = LLM(model=model_id, tokenizer_mode="mistral")
+        self.llm = LLM(model=model_id)
         
     def infer(self,inputs):
         SYSTEM_PROMPT = "You are a conversational agent that always answers straight to the point, always end your accurate response with an ASCII drawing of a cat."
