@@ -1,5 +1,6 @@
 import os
 import torch
+import json
 from transformers import AutoTokenizer, Mistral3ForConditionalGeneration, BitsAndBytesConfig
 
 os.environ["VLLM_USE_V1"] = "0"
@@ -35,7 +36,7 @@ class InferlessPythonModel:
             },
         ]
 
-        inputs = self.tokenizer(messages, return_tensors="pt").to("cuda")
+        inputs = self.tokenizer(json.dumps(messages), return_tensors="pt").to("cuda")
         
         # Generate output
         with torch.no_grad():
