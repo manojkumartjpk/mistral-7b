@@ -6,3 +6,5 @@ build:
     - "bitsandbytes==0.45.3"
     - "hf-transfer==0.1.9"
     - "huggingface-hub==0.29.3"
+    - "git+https://github.com/huggingface/transformers.git"
+    - "accelerate==1.5.2"
